@@ -13,6 +13,8 @@
  */
 package org.ml4j.gpt3.mock.api;
 
+import java.util.List;
+
 import org.ml4j.gpt3.GPT3Request;
 import org.ml4j.gpt3.GPT3Response;
 import org.ml4j.gpt3.mock.MockGPT3Service;
@@ -38,5 +40,10 @@ public class MockGpt3Controller {
 		} catch(UnsupportedOperationException e) {
 			return new GPT3Response();
 		}
+	}
+	
+	@RequestMapping(value="/v1/engines/{model}/prompts",method = RequestMethod.GET)
+	public List<String> getResponse() {
+			return mockGPT3Service.getAvailablePrompts();
 	}
 }

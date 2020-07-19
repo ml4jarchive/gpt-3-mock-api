@@ -22,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MockGPT3Service {
 
-	public final static String DEFAULT_EXAMPLES_PATH = "src/modules/ml4j-gpt-3-absolute-zero/src/modules/ml4j-gpt-3-experiments/examples";
+	public final static String DEFAULT_MODULES_PATH = "src/modules/ml4j-gpt-3-absolute-zero/src/modules";
 
 	public Map<Key, List<String>> outputsByPromptAndTemperature;
 
@@ -49,9 +50,14 @@ public class MockGPT3Service {
 
 		Path experimentsDirectory = resourcesDirectory.getParent().getParent();
 
-		File examplesDir = new File(experimentsDirectory.toFile(), DEFAULT_EXAMPLES_PATH);
 		this.outputsByPromptAndTemperature = new HashMap<>();
-		for (File example : examplesDir.listFiles()) {
+		File baseModulesDir = new File(experimentsDirectory.toFile(), DEFAULT_MODULES_PATH);
+		processExampleDirectories(baseModulesDir);
+		
+	}
+	
+	private void processExampleDirectories(File baseDir) throws IOException {
+		for (File example : getExampleDirectories(baseDir)) {
 			if (example.isDirectory()) {
 				// Obtain the contents of the prompt file.
 				File promptFile = example.listFiles(file -> file.getPath().endsWith("prompt.txt"))[0];
@@ -88,6 +94,30 @@ public class MockGPT3Service {
 				}
 			}
 		}
+	}
+	
+	private List<File> getExampleDirectories(File baseDir) {
+		List<File> currentDirectoryList = new ArrayList<>();
+		processNestedDirectories(currentDirectoryList, baseDir);
+		return currentDirectoryList;
+	}
+	
+	private void processNestedDirectories(List<File> currentDirectoryList, File directory) {
+		File[] promptFiles = directory.listFiles(file -> file.getPath().endsWith("prompt.txt"));
+		if (promptFiles.length == 1 && directory.listFiles(file -> file.getPath().contains("output_")).length > 0) {
+			currentDirectoryList.add(directory);
+		}
+		for (File subDirectory : directory.listFiles(file -> file.isDirectory())) {
+			processNestedDirectories(currentDirectoryList, subDirectory);
+		}
+	}
+	
+	public List<String> getAvailablePrompts() {
+		List<String> prompts = new ArrayList<>();
+		prompts.addAll(outputsByPromptAndTemperature.keySet().stream().map(k -> k.prompt)
+				.collect(Collectors.toList()));
+		Collections.sort(prompts);
+		return prompts;
 	}
 
 	public GPT3Response getResponse(GPT3Request request) {
