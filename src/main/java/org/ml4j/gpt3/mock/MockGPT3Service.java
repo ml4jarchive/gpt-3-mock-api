@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.ml4j.gpt3.GPT3Choice;
 import org.ml4j.gpt3.GPT3Request;
@@ -36,13 +37,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MockGPT3Service {
-	
+
 	public final static String DEFAULT_EXAMPLES_PATH = "src/modules/ml4j-gpt-3-absolute-zero/src/modules/ml4j-gpt-3-experiments/examples";
-	
+
 	public Map<Key, List<String>> outputsByPromptAndTemperature;
-	
+
 	public MockGPT3Service() throws FileNotFoundException, IOException {
-		
+
 		// Load the mock responses from the example files.
 		Path resourcesDirectory = new File(MockGPT3Service.class.getClassLoader().getResource("").getFile()).toPath();
 
@@ -55,12 +56,13 @@ public class MockGPT3Service {
 				// Obtain the contents of the prompt file.
 				File promptFile = example.listFiles(file -> file.getPath().endsWith("prompt.txt"))[0];
 				String prompt = new String(Files.readAllBytes(promptFile.toPath()));
-				// For each output file, extract the temperature from the file name, and read the contents
+				// For each output file, extract the temperature from the file name, and read
+				// the contents
 				// of the file, splitting into multiple out strings.
 				for (File file : example.listFiles(file -> file.getPath().contains("output_"))) {
 					String temperatureString = file.getPath().substring(0, file.getPath().lastIndexOf("_") + 2);
-					temperatureString = temperatureString.substring(temperatureString.length() - 3, 
-							temperatureString.length()).replace('_', '.');
+					temperatureString = temperatureString
+							.substring(temperatureString.length() - 3, temperatureString.length()).replace('_', '.');
 					BigDecimal temperature = new BigDecimal(temperatureString);
 					String entireFileContents = new String(Files.readAllBytes(file.toPath()));
 					// TODO - make this more robust.
@@ -78,7 +80,7 @@ public class MockGPT3Service {
 							if (outputs == null) {
 								outputs = new ArrayList<>();
 								outputsByPromptAndTemperature.put(new Key(prompt, temperature), outputs);
-								
+
 							}
 							outputs.add(output);
 						}
@@ -90,41 +92,44 @@ public class MockGPT3Service {
 
 	public GPT3Response getResponse(GPT3Request request) {
 		GPT3Response response = new GPT3Response();
-		List<GPT3Choice> choicesInDescendingLikelyhoodOrder 
-			= getChoicesInDescendingLikelyhoodOrder(request);
+		List<GPT3Choice> choicesInDescendingLikelyhoodOrder = getChoicesInDescendingLikelyhoodOrder(request);
 		if (request.getTemperature().floatValue() == 0) {
 			response.setChoices(Arrays.asList(choicesInDescendingLikelyhoodOrder.get(0)));
 		} else {
-			int randomIndex = (int)Math.random() * choicesInDescendingLikelyhoodOrder.size();
-			response.setChoices(Arrays.asList(choicesInDescendingLikelyhoodOrder.get(randomIndex)));
+			throw new UnsupportedOperationException("Non-zero temperatures not supported");
 		}
 		return response;
 	}
-	
+
 	private List<GPT3Choice> getChoicesInDescendingLikelyhoodOrder(GPT3Request request) {
 		if (request.getMaxTokens() != 512) {
 			throw new UnsupportedOperationException("Outputs only currently mocked for max-tokens = 512");
 		}
-		GPT3Choice choice = new GPT3Choice();
-		choice.setText(getMockText(request.getPrompt(), request.getTemperature()));
-		return Arrays.asList(choice);
+		return getMockTexts(request.getPrompt(), request.getTemperature()).stream().map(text -> createChoice(text))
+				.collect(Collectors.toList());
 	}
-	
-	private String getMockText(String prompt, BigDecimal temperature) {
+
+	private GPT3Choice createChoice(String text) {
+		GPT3Choice choice = new GPT3Choice();
+		choice.setText(text);
+		return choice;
+	}
+
+	private List<String> getMockTexts(String prompt, BigDecimal temperature) {
 		List<String> mockResponses = outputsByPromptAndTemperature.get(new Key(prompt, temperature));
 		if (mockResponses != null && !mockResponses.isEmpty()) {
-			return mockResponses.get(0);
+			return mockResponses;
 		} else {
 			throw new UnsupportedOperationException("Prompt/Temperature not supported:" + prompt + ":" + temperature);
 		}
 	}
-	
+
 	/**
 	 * A key we use to lookup mock output by prompt and temperature.
 	 * 
 	 * @author Michael Lavelle
 	 */
-	private class Key implements Serializable  {
+	private class Key implements Serializable {
 
 		/**
 		 * Default serialization id.
@@ -132,7 +137,7 @@ public class MockGPT3Service {
 		private static final long serialVersionUID = 1L;
 		private String prompt;
 		private BigDecimal temperature;
-		
+
 		public Key(String prompt, BigDecimal temperature) {
 			this.prompt = prompt;
 			this.temperature = temperature;
