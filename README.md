@@ -1,6 +1,6 @@
 # gpt-3-mock-api
 
-A simple prototype of a mock gpt-3 api server.
+A simple prototype of a mock gpt-3 api server,  configured to return real GPT-3 responses to a small number of selectable prompts.
 
 I don't currently have access to the gpt3 API, however I was interested in exploring the request/response structure and wanted to run gpt3-experiments,
 so I thought this mock api server may be useful.
