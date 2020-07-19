@@ -37,16 +37,16 @@ import org.springframework.stereotype.Service;
  * @author Michael Lavelle
  */
 @Service
-public class MockGpt3Service implements MockGpt3Api {
+public class MockGpt4Service implements MockGpt3Api {
 
 	public final static String DEFAULT_MODULES_PATH = "src/modules/ml4j-gpt-3-absolute-zero/src/modules";
 
 	public Map<Key, List<String>> outputsByPromptAndTemperature;
 
-	public MockGpt3Service() throws FileNotFoundException, IOException {
+	public MockGpt4Service() throws FileNotFoundException, IOException {
 
 		// Load the mock responses from the example files.
-		Path resourcesDirectory = new File(MockGpt3Service.class.getClassLoader().getResource("").getFile()).toPath();
+		Path resourcesDirectory = new File(MockGpt4Service.class.getClassLoader().getResource("").getFile()).toPath();
 
 		Path experimentsDirectory = resourcesDirectory.getParent().getParent();
 
@@ -208,8 +208,8 @@ public class MockGpt3Service implements MockGpt3Api {
 			return true;
 		}
 
-		private MockGpt3Service getEnclosingInstance() {
-			return MockGpt3Service.this;
+		private MockGpt4Service getEnclosingInstance() {
+			return MockGpt4Service.this;
 		}
 	}
 }
