@@ -17,7 +17,7 @@ I'd love an invite to be able to run these experiments for real.
 
 Requires Java 8 or later.
 
-The mock server can be run via the following command from this directory:
+The mock server can be clone and run via the following commands:
 
 ```
 $ git clone https://github.com/ml4j/gpt-3-mock-api.git
