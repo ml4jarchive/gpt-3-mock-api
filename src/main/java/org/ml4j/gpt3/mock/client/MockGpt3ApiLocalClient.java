@@ -20,17 +20,17 @@ import java.util.List;
 import org.ml4j.gpt3.GPT3Request;
 import org.ml4j.gpt3.GPT3Response;
 import org.ml4j.gpt3.mock.MockGpt3Api;
-import org.ml4j.gpt3.mock.MockGpt4Service;
+import org.ml4j.gpt3.mock.MockGpt3Service;
 
 /**
  * @author Michael Lavelle
  */
 public class MockGpt3ApiLocalClient implements MockGpt3Api {
 
-	private MockGpt4Service mockGpt3Service;
+	private MockGpt3Service mockGpt3Service;
 	
 	public MockGpt3ApiLocalClient() throws FileNotFoundException, IOException {
-		this.mockGpt3Service = new MockGpt4Service();
+		this.mockGpt3Service = new MockGpt3Service();
 	}
 	
 	@Override
