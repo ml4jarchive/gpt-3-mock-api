@@ -1,0 +1,4 @@
+[submodule "src/modules/ml4j-gpt-3-absolute-zero"]
+	path = src/modules/ml4j-gpt-3-absolute-zero
+	url = https://github.com/ml4j/gpt-3-absolute-zero.git
+	branch = master
