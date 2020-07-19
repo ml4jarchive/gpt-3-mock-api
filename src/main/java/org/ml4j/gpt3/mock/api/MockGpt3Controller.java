@@ -15,9 +15,10 @@ package org.ml4j.gpt3.mock.api;
 
 import java.util.List;
 
+import org.ml4j.gpt3.GPT3Api;
 import org.ml4j.gpt3.GPT3Request;
 import org.ml4j.gpt3.GPT3Response;
-import org.ml4j.gpt3.mock.MockGPT3Service;
+import org.ml4j.gpt3.mock.MockGpt3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Michael Lavelle
  */
 @RestController
-public class MockGpt3Controller {
+public class MockGpt3Controller implements GPT3Api {
 	
 	@Autowired
-	private MockGPT3Service mockGPT3Service;
+	private MockGpt3Service mockGPT3Service;
 	
 	@RequestMapping(value="/v1/engines/{model}/completions",method = RequestMethod.POST)
 	public GPT3Response getResponse(@RequestBody GPT3Request request) {
@@ -43,7 +44,7 @@ public class MockGpt3Controller {
 	}
 	
 	@RequestMapping(value="/v1/engines/{model}/prompts",method = RequestMethod.GET)
-	public List<String> getResponse() {
+	public List<String> getAvailablePrompts() {
 			return mockGPT3Service.getAvailablePrompts();
 	}
 }
