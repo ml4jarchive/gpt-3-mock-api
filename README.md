@@ -27,3 +27,17 @@ $ cd src/modules/ml4j-gpt-3-absolute-zero
 $ git submodule update --init
 $ cd ../../..
 $ mvn spring-boot:run
+
+```
+
+## Maintainer/Creator
+
+Michael Lavelle
+
+## License
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+## Disclaimer
+
+This repo has no affiliation with OpenAI.
