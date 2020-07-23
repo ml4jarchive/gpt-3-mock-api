@@ -11,35 +11,23 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.ml4j.gpt3.mock.client;
+package org.ml4j.gpt3.prompt.processors;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.ml4j.gpt3.GPT3Request;
-import org.ml4j.gpt3.GPT3Response;
-import org.ml4j.gpt3.mock.MockGpt3Api;
-import org.ml4j.gpt3.mock.MockGpt3Service;
-
 /**
- * @author Michael Lavelle
+ * Processes a file ( may be a directory) containing information about mocked prompts
+ * and outputs.
+ * 
+ * @author Michae Lavelle
  */
-public class MockGpt3ApiLocalClient implements MockGpt3Api {
-
-	private MockGpt3Service mockGpt3Service;
+public interface FileProcessor {
 	
-	public MockGpt3ApiLocalClient() throws FileNotFoundException, IOException {
-		this.mockGpt3Service = new MockGpt3Service();
-	}
-	
-	@Override
-	public GPT3Response getResponse(GPT3Request request) {
-		return mockGpt3Service.getResponse(request);
-	}
+	boolean isSupported(File file);
 
-	@Override
-	public List<GPT3Request> getAvailableRequests() {
-		return mockGpt3Service.getAvailableRequests();
-	}
+	Map<GPT3Request,List<String>>  processExample(File example) throws IOException;
 }

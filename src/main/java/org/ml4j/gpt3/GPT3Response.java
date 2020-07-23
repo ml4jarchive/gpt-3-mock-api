@@ -13,13 +13,18 @@
  */
 package org.ml4j.gpt3;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Michael Lavelle
  */
-public class GPT3Response {
+public class GPT3Response implements Serializable {
 
+	/**
+	 * Default serialization id.
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<GPT3Choice> choices;
 
 	public List<GPT3Choice> getChoices() {

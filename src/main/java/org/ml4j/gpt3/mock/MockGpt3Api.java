@@ -16,11 +16,12 @@ package org.ml4j.gpt3.mock;
 import java.util.List;
 
 import org.ml4j.gpt3.GPT3Api;
+import org.ml4j.gpt3.GPT3Request;
 
 /**
  * @author Michael Lavelle
  */
 public interface MockGpt3Api extends GPT3Api {
 
-	List<String> getAvailablePrompts();
+	List<GPT3Request> getAvailableRequests();
 }

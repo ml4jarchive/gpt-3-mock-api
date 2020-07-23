@@ -13,12 +13,19 @@
  */
 package org.ml4j.gpt3;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Michael Lavelle
  */
-public class GPT3Choice {
+public class GPT3Choice implements Serializable {
+
+	/**
+	 * Default serialization id.
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@JsonIgnore
 	private float likelyhood;

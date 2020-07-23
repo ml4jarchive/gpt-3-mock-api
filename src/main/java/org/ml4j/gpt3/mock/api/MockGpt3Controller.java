@@ -44,7 +44,7 @@ public class MockGpt3Controller implements GPT3Api {
 	}
 	
 	@RequestMapping(value="/v1/engines/{model}/prompts",method = RequestMethod.GET)
-	public List<String> getAvailablePrompts() {
-			return mockGPT3Service.getAvailablePrompts();
+	public List<GPT3Request> getAvailableRequests() {
+			return mockGPT3Service.getAvailableRequests();
 	}
 }
