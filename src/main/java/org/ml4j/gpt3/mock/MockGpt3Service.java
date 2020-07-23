@@ -139,7 +139,7 @@ public class MockGpt3Service implements MockGpt3Api {
 	}
 
 	private List<GPT3Choice> getChoicesInDescendingLikelyhoodOrder(GPT3Request request) {
-		if (request.getMaxTokens() != 512) {
+		if (request.getMaxTokens() == null || request.getMaxTokens().intValue() != 512) {
 			throw new UnsupportedOperationException("Outputs only currently mocked for max-tokens = 512");
 		}
 		return getMockTexts(request.getPrompt(), request.getTemperature()).stream().map(text -> createChoice(text))
