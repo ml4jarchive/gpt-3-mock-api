@@ -32,6 +32,20 @@ import org.ml4j.gpt3.GPT3Request;
  */
 public class DefaultPromptDirectoryProcessor implements FileProcessor {
 	
+	private int maxTokens;
+	private Integer topP;
+	private Integer n;
+	private Boolean stream;
+	private String stop;
+
+	public DefaultPromptDirectoryProcessor(int maxTokens, Integer topP, Integer n,  Boolean stream, String stop) {
+		this.maxTokens = maxTokens;
+		this.topP = topP;
+		this.n = n;
+		this.stream = stream;
+		this.stop = stop;
+	}
+	
 	public boolean isSupported(File directory) {
 		if (directory != null && directory.isDirectory()) {
 			File[] promptFiles = directory.listFiles(file -> file.getPath().endsWith("prompt.txt"));
@@ -72,16 +86,16 @@ public class DefaultPromptDirectoryProcessor implements FileProcessor {
 					GPT3Request r = new GPT3Request();
 					r.setPrompt(prompt);
 					r.setTemperature(temperature);
-					r.setMaxTokens(512);
+					r.setMaxTokens(maxTokens);
+					r.setN(n);
+					r.setTopP(topP);
+					r.setStop(stop);
+					r.setStream(stream);
 
 					List<String> outputs = outputsByRequest.get(r);
 					if (outputs == null) {
 						outputs = new ArrayList<>();
-						GPT3Request request = new GPT3Request();
-						request.setPrompt(prompt);
-						request.setMaxTokens(512);
-						request.setTemperature(temperature);
-						outputsByRequest.put(request, outputs);
+						outputsByRequest.put(r, outputs);
 					}
 					outputs.add(output);
 				}

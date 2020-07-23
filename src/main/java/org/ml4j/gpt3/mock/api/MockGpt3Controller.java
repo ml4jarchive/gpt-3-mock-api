@@ -37,8 +37,10 @@ public class MockGpt3Controller implements GPT3Api {
 	@RequestMapping(value="/v1/engines/{model}/completions",method = RequestMethod.POST)
 	public GPT3Response getResponse(@RequestBody GPT3Request request) {
 		try {
-			return mockGPT3Service.getResponse(request);
+			GPT3Response response = mockGPT3Service.getResponse(request);
+			return response;
 		} catch(UnsupportedOperationException e) {
+			e.printStackTrace();
 			return new GPT3Response();
 		}
 	}

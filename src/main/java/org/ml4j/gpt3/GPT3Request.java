@@ -56,9 +56,11 @@ public class GPT3Request implements Serializable {
 	public void setTemperature(BigDecimal temperature) {
 		this.temperature = temperature;
 	}
+	
 	@Override
 	public String toString() {
-		return "GPT3Request [prompt=" + prompt + ", maxTokens=" + maxTokens + ", temperature=" + temperature + "]";
+		return "GPT3Request [prompt=" + prompt + ", maxTokens=" + maxTokens + ", topP=" + topP + ", n=" + n
+				+ ", stream=" + stream + ", stop=" + stop + ", temperature=" + temperature + "]";
 	}
 	public Integer getTopP() {
 		return topP;

@@ -1,0 +1,30 @@
+input: Two plus two equals four
+output: 2 + 2 = 4
+
+input: The integral from zero to infinity
+output: \int_0^{\infty}
+
+input: The gradient of x squared plus two times x with respect to x
+output: \nabla_x x^2 + 2x
+
+input: The log of two times x
+output: \log{2x}
+
+input: x squared plus y squared plus equals z squared
+output: x^2 + y^2 = z^2
+
+input: The sum from zero to twelve of i squared
+output: \sum_{i=0}^{12} i^2
+
+input: E equals m times c squared
+output: E = mc^2
+
+input: H naught of t
+output: H_0(t)
+
+input: f of n equals 1 over (b-a) if n is 0 otherwise 5
+output: f(n) = \begin{cases} 1/(b-a) &\mbox{if } n \equiv 0 \\ # 5 \end{cases}
+
+input: x squared plus 2 times x
+output: x^2 + 2x
+

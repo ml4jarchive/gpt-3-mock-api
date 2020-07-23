@@ -38,7 +38,8 @@ import org.springframework.stereotype.Service;
 public class MockGpt3Service implements MockGpt3Api {
 
 	public final static String DEFAULT_MODULES_PATH = "src/modules/ml4j-gpt-3-absolute-zero/src/modules";
-	
+	public final static String LOCAL_PATH = "src/local";
+
 	public Map<GPT3Request, List<String>> outputsByRequest;
 
 	public MockGpt3Service() throws FileNotFoundException, IOException {
@@ -51,7 +52,12 @@ public class MockGpt3Service implements MockGpt3Api {
 		Path experimentsDirectory = resourcesDirectory.getParent().getParent();
 
 		File baseModulesDir = new File(experimentsDirectory.toFile(), DEFAULT_MODULES_PATH);
-		processExampleDirectories(baseModulesDir, new DefaultPromptDirectoryProcessor());
+		processExampleDirectories(baseModulesDir, new DefaultPromptDirectoryProcessor(512, null, null,
+				null, null));
+		
+		File baseLocalDir = new File(experimentsDirectory.toFile(), LOCAL_PATH);
+		processExampleDirectories(baseLocalDir, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
+				"\ninput:"));
 	}
 	
 	private void processExampleDirectories(File baseDir, FileProcessor processor) throws IOException {
