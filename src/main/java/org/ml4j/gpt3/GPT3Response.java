@@ -29,4 +29,11 @@ public class GPT3Response {
 	public void setChoices(List<GPT3Choice> choices) {
 		this.choices = choices;
 	}
+
+	@Override
+	public String toString() {
+		return "GPT3Response [choices=" + choices + "]";
+	}
+	
+	
 }

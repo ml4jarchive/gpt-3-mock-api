@@ -36,4 +36,11 @@ public class GPT3Choice {
 	public float getLikelyhood() {
 		return likelyhood;
 	}
+
+	@Override
+	public String toString() {
+		return "GPT3Choice [likelyhood=" + likelyhood + ", text=" + text + "]";
+	}
+	
+	
 }

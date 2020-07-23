@@ -24,7 +24,12 @@ public class GPT3Request {
 	
 	private String prompt;
 	@JsonProperty("max_tokens")
-	private int maxTokens;
+	private Integer maxTokens;
+	@JsonProperty("top_p")
+	private Integer topP;
+	private Integer n;
+	private Boolean stream;
+	private String stop;
 	private BigDecimal temperature;
 	
 	public String getPrompt() {
@@ -33,10 +38,10 @@ public class GPT3Request {
 	public void setPrompt(String prompt) {
 		this.prompt = prompt;
 	}
-	public int getMaxTokens() {
+	public Integer getMaxTokens() {
 		return maxTokens;
 	}
-	public void setMaxTokens(int maxTokens) {
+	public void setMaxTokens(Integer maxTokens) {
 		this.maxTokens = maxTokens;
 	}
 	public BigDecimal getTemperature() {
@@ -45,4 +50,35 @@ public class GPT3Request {
 	public void setTemperature(BigDecimal temperature) {
 		this.temperature = temperature;
 	}
+	@Override
+	public String toString() {
+		return "GPT3Request [prompt=" + prompt + ", maxTokens=" + maxTokens + ", temperature=" + temperature + "]";
+	}
+	public Integer getTopP() {
+		return topP;
+	}
+	public void setTopP(Integer topP) {
+		this.topP = topP;
+	}
+	public Integer getN() {
+		return n;
+	}
+	public void setN(Integer n) {
+		this.n = n;
+	}
+	public Boolean getStream() {
+		return stream;
+	}
+	public void setStream(Boolean stream) {
+		this.stream = stream;
+	}
+	public String getStop() {
+		return stop;
+	}
+	public void setStop(String stop) {
+		this.stop = stop;
+	}
+	
+	
+	
 }
