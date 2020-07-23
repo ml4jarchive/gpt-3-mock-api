@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author Michael Lavelle
  */
-public class GPT3Request  {
+public class GPT3Request implements Serializable {
 	
 	/**
 	 * Default serialization id.
