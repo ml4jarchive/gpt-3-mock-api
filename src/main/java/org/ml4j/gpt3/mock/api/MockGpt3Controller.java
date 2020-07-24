@@ -40,7 +40,7 @@ public class MockGpt3Controller implements GPT3Api {
 			GPT3Response response = mockGPT3Service.getResponse(request);
 			return response;
 		} catch(UnsupportedOperationException e) {
-			e.printStackTrace();
+			e.printStackTrace();		
 			return new GPT3Response();
 		}
 	}

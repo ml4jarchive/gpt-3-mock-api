@@ -28,6 +28,7 @@ import org.ml4j.gpt3.GPT3Choice;
 import org.ml4j.gpt3.GPT3Request;
 import org.ml4j.gpt3.GPT3Response;
 import org.ml4j.gpt3.prompt.processors.DefaultPromptDirectoryProcessor;
+import org.ml4j.gpt3.prompt.processors.DefaultPromptJsonProcessor;
 import org.ml4j.gpt3.prompt.processors.FileProcessor;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,7 @@ import org.springframework.stereotype.Service;
 public class MockGpt3Service implements MockGpt3Api {
 
 	public final static String DEFAULT_MODULES_PATH = "src/modules/ml4j-gpt-3-absolute-zero/src/modules";
+	
 	public final static String LOCAL_PATH = "src/local";
 
 	public Map<GPT3Request, List<String>> outputsByRequest;
@@ -55,9 +57,14 @@ public class MockGpt3Service implements MockGpt3Api {
 		processExampleDirectories(baseModulesDir, new DefaultPromptDirectoryProcessor(512, null, null,
 				null, null));
 		
+		processExampleDirectories(baseModulesDir, new DefaultPromptJsonProcessor(null));
+		
 		File baseLocalDir = new File(experimentsDirectory.toFile(), LOCAL_PATH);
 		processExampleDirectories(baseLocalDir, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
 				"\ninput:"));
+		
+		processExampleDirectories(baseLocalDir, new DefaultPromptJsonProcessor(
+				"\nWhat does the code below do? Write one comment for each of the following numbered statements"));
 	}
 	
 	private void processExampleDirectories(File baseDir, FileProcessor processor) throws IOException {
