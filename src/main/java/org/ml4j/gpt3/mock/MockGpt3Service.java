@@ -66,15 +66,15 @@ public class MockGpt3Service implements MockGpt3Api {
 		
 		File baseLocalDir1 = new File(experimentsDirectory.toFile(), LOCAL_LATEX_IO_PATH);
 		processExampleDirectories(baseLocalDir1, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
-				"\ninput:"));
+				"input:"));
 		
 		File baseLocalDir2 = new File(experimentsDirectory.toFile(), LOCAL_LATEX_QA_PATH);
 		processExampleDirectories(baseLocalDir2, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
-				"\nQ:"));
+				"Q:"));
 		
 		File baseLocalDir3 = new File(experimentsDirectory.toFile(), LOCAL_QA_PATH);
 		processExampleDirectories(baseLocalDir3, new DefaultPromptJsonProcessor(
-				"\nWhat does the code below do? Write one comment for each of the following numbered statements:\n\n"));
+				"What does the code below do? Write one comment for each of the following numbered statements:"));
 	}
 	
 	private void processExampleDirectories(File baseDir, FileProcessor processor) throws IOException {
