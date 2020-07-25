@@ -42,7 +42,7 @@ public class MockGpt3Service implements MockGpt3Api {
 	
 	public final static String LOCAL_LATEX_IO_PATH = "src/local/examples/question-answer/latex-io";
 	
-	public final static String LOCAL_LATEX_QA_PATH = "src/local/examples/question-answer/latex-qa";
+	public final static String LOCAL_GENERAL_KNOWLEDGE_QA_PATH = "src/local/examples/question-answer/general-knowledge-qa";
 	
 	public final static String LOCAL_QA_PATH = "src/local/examples/question-answer";
 	
@@ -68,7 +68,7 @@ public class MockGpt3Service implements MockGpt3Api {
 		processExampleDirectories(baseLocalDir1, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
 				"input:"));
 		
-		File baseLocalDir2 = new File(experimentsDirectory.toFile(), LOCAL_LATEX_QA_PATH);
+		File baseLocalDir2 = new File(experimentsDirectory.toFile(), LOCAL_GENERAL_KNOWLEDGE_QA_PATH);
 		processExampleDirectories(baseLocalDir2, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
 				"Q:"));
 		
