@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.ml4j.gpt3.prompt.questionanswer;
+package org.ml4j.gpt3.prompt.style.questionanswer;
 
 import java.util.List;
 

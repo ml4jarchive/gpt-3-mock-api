@@ -73,7 +73,7 @@ public class MockGptControllerTest {
 				+ "She knocked on the little house’s door because she was very polite. She knocked on the little house’s door because she was very polite. She knocked on the little house’s door because she was very polite.\n" + 
 				"\n" + 
 				"The little girl knocked on the little house’s door. She knocked on the little house’s door because she was very polite. "
-				+ "She knocked on the little house’s door because she was very polite. She knocked on the little house’s door because she was very polite. She knocked on the little house’s door because she was");
+				+ "She knocked on the little house’s door because she was very polite. She knocked on the little house’s door because she was very polite. She knocked on the little house’s door because she was\n");
 	}
 	
 	@Test()
