@@ -40,9 +40,9 @@ public class MockGpt3Service implements MockGpt3Api {
 
 	public final static String DEFAULT_MODULES_PATH = "src/modules/ml4j-gpt-3-absolute-zero/src/modules";
 	
-	public final static String LOCAL_LATEX_IO_PATH = "src/local/examples/latex_io";
+	public final static String LOCAL_LATEX_IO_PATH = "src/local/examples/question-answer/latex-io";
 	
-	public final static String LOCAL_LATEX_QA_PATH = "src/local/examples/latex_qa";
+	public final static String LOCAL_LATEX_QA_PATH = "src/local/examples/question-answer/latex-qa";
 	
 	public final static String LOCAL_QA_PATH = "src/local/examples/question-answer";
 	
