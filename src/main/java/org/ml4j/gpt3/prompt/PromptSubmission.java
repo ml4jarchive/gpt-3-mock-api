@@ -17,6 +17,17 @@ import java.util.List;
 
 import org.ml4j.gpt3.prompt.processors.SubmissionResult;
 
+/**
+ * Represents the submission of a prompt to a completion service such as the GPT-3 API or AIDungeon.
+ * 
+ * Encapsulates the initial (seed) prompt text, an optional templateId/promptId if the prompt text was generated
+ * from a identifiable prompt or template, and a list of SubmissionResults.
+ * This SubmissionResults list includes the result of the initial submission of this prompt to the service,
+ * plus any subsequent submissions.
+
+ * 
+ * @author Michael Lavelle
+ */
 public class PromptSubmission {
 
 	private String templateId;
@@ -50,6 +61,4 @@ public class PromptSubmission {
 	public void setInitialPromptText(String initialPromptText) {
 		this.initialPromptText = initialPromptText;
 	}
-	
-	
 }

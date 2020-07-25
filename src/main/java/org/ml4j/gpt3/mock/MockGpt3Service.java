@@ -40,7 +40,12 @@ public class MockGpt3Service implements MockGpt3Api {
 
 	public final static String DEFAULT_MODULES_PATH = "src/modules/ml4j-gpt-3-absolute-zero/src/modules";
 	
-	public final static String LOCAL_PATH = "src/local";
+	public final static String LOCAL_LATEX_IO_PATH = "src/local/examples/latex_io";
+	
+	public final static String LOCAL_LATEX_QA_PATH = "src/local/examples/latex_qa";
+	
+	public final static String LOCAL_QA_PATH = "src/local/examples/question-answer";
+	
 
 	public Map<GPT3Request, List<String>> outputsByRequest;
 
@@ -59,12 +64,17 @@ public class MockGpt3Service implements MockGpt3Api {
 		
 		processExampleDirectories(baseModulesDir, new DefaultPromptJsonProcessor(null));
 		
-		File baseLocalDir = new File(experimentsDirectory.toFile(), LOCAL_PATH);
-		processExampleDirectories(baseLocalDir, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
+		File baseLocalDir1 = new File(experimentsDirectory.toFile(), LOCAL_LATEX_IO_PATH);
+		processExampleDirectories(baseLocalDir1, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
 				"\ninput:"));
 		
-		processExampleDirectories(baseLocalDir, new DefaultPromptJsonProcessor(
-				"\nWhat does the code below do? Write one comment for each of the following numbered statements"));
+		File baseLocalDir2 = new File(experimentsDirectory.toFile(), LOCAL_LATEX_QA_PATH);
+		processExampleDirectories(baseLocalDir2, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
+				"\nQ:"));
+		
+		File baseLocalDir3 = new File(experimentsDirectory.toFile(), LOCAL_QA_PATH);
+		processExampleDirectories(baseLocalDir3, new DefaultPromptJsonProcessor(
+				"\nWhat does the code below do? Write one comment for each of the following numbered statements:\n\n"));
 	}
 	
 	private void processExampleDirectories(File baseDir, FileProcessor processor) throws IOException {
