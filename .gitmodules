@@ -5,3 +5,7 @@
 [submodule "src/modules/ml4j-gtp-3-prompt-templates"]
 	path = src/modules/ml4j-gtp-3-prompt-templates
 	url = https://github.com/ml4j/gtp-3-prompt-templates
+[submodule "src/modules/ml4j-gpt-scrolls"]
+	path = src/modules/ml4j-gpt-scrolls
+	url = https://github.com/ml4j/gpt-scrolls.git
+	branch = master
