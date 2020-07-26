@@ -40,15 +40,16 @@ public class MockGpt3Service implements MockGpt3Api {
 
 	public final static String DEFAULT_MODULES_PATH = "src/modules/ml4j-gpt-3-absolute-zero/src/modules";
 	
+	public final static String ML4J_GPT_SCROLLS_MODULE_PATH = "src/modules/ml4j-gpt-scrolls";
+	
 	public final static String LOCAL_LATEX_IO_PATH = "src/local/examples/question-answer/latex-io";
 	
 	public final static String LOCAL_GENERAL_KNOWLEDGE_QA_PATH = "src/local/examples/question-answer/general-knowledge-qa";
 	
 	public final static String LOCAL_GENERAL_KNOWLEDGE_PREMISE_QA_PATH = "src/local/examples/question-answer/general-knowledge-qa-with-premise";
-
+	
 	public final static String LOCAL_QA_PATH = "src/local/examples/question-answer";
 	
-
 	public Map<GPT3Request, List<String>> outputsByRequest;
 
 	public MockGpt3Service() throws FileNotFoundException, IOException {
@@ -61,8 +62,14 @@ public class MockGpt3Service implements MockGpt3Api {
 		Path experimentsDirectory = resourcesDirectory.getParent().getParent();
 
 		File baseModulesDir = new File(experimentsDirectory.toFile(), DEFAULT_MODULES_PATH);
-		processExampleDirectories(baseModulesDir, new DefaultPromptDirectoryProcessor(512, null, null,
+		
+		processExampleDirectories(baseModulesDir, new DefaultPromptDirectoryProcessor(100, null, null,
 				null, null));
+		
+		File ml4jGptScrollsDir = new File(experimentsDirectory.toFile(), ML4J_GPT_SCROLLS_MODULE_PATH);
+		
+		processExampleDirectories(ml4jGptScrollsDir, new DefaultPromptJsonProcessor(
+				""));
 		
 		processExampleDirectories(baseModulesDir, new DefaultPromptJsonProcessor(null));
 		
