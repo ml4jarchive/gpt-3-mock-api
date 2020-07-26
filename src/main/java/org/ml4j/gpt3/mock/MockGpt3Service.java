@@ -44,6 +44,8 @@ public class MockGpt3Service implements MockGpt3Api {
 	
 	public final static String LOCAL_GENERAL_KNOWLEDGE_QA_PATH = "src/local/examples/question-answer/general-knowledge-qa";
 	
+	public final static String LOCAL_GENERAL_KNOWLEDGE_PREMISE_QA_PATH = "src/local/examples/question-answer/general-knowledge-qa-with-premise";
+
 	public final static String LOCAL_QA_PATH = "src/local/examples/question-answer";
 	
 
@@ -72,8 +74,12 @@ public class MockGpt3Service implements MockGpt3Api {
 		processExampleDirectories(baseLocalDir2, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
 				"Q:"));
 		
-		File baseLocalDir3 = new File(experimentsDirectory.toFile(), LOCAL_QA_PATH);
-		processExampleDirectories(baseLocalDir3, new DefaultPromptJsonProcessor(
+		File baseLocalDir3 = new File(experimentsDirectory.toFile(), LOCAL_GENERAL_KNOWLEDGE_PREMISE_QA_PATH);
+		processExampleDirectories(baseLocalDir3, new DefaultPromptDirectoryProcessor(100, 1, 1, false,
+				"Q:"));
+		
+		File baseLocalDir4 = new File(experimentsDirectory.toFile(), LOCAL_QA_PATH);
+		processExampleDirectories(baseLocalDir4, new DefaultPromptJsonProcessor(
 				"What does the code below do? Write one comment for each of the following numbered statements:"));
 	}
 	
